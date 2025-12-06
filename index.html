@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Soundboard</title>
+  <style>
+    body {
+      background: black;
+      font-family: Arial;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .box {
+      background: #45d0ec;
+      padding: 40px;
+      border-radius: 12px;
+      text-align: center;
+      width: 420px;
+      box-shadow: 0 0 20px #45d0ec;
+    }
+
+    h2 {
+      color: black;
+      margin-bottom: 20px;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      font-size: 16px;
+      border: none;
+      background: black;
+      color: #45d0ec;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #333;
+    }
+
+    input {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    label {
+      color: black;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box">
+    <h2>🎵 Soundboard</h2>
+
+    <button onclick="playSound('rain')">🌧 Rain</button>
+    <button onclick="playSound('ripple')">💧 Water Ripple</button>
+    <button onclick="playSound('bell')">🔔 Bell</button>
+    <button onclick="playSound('wind')">🌬 Wind</button>
+    <button onclick="playSound('bird')">🐦 Bird</button>
+
+    <br><br>
+
+    <label>Volume</label>
+    <input type="range" id="volume" value="50">
+
+    <br><br>
+
+    <button onclick="muteSound()" id="muteBtn">🔇 Mute</button>
+  </div>
+
+  <script>
+    let volume = 0.5;
+    let muted = false;
+
+    const sounds = {
+      rain: new Audio("https://www.soundjay.com/nature/rain-01.mp3"),
+      ripple: new Audio("https://cdn.freesound.org/previews/416/416710_5121236-lq.mp3"),
+      bell: new Audio("https://www.soundjay.com/misc/bell-ringing-05.mp3"),
+      wind: new Audio("https://www.soundjay.com/nature/wind-1.mp3"),
+      bird: new Audio("https://pixabay.com/sound-effects/search/birds/")
+    };
+
+    function playSound(name) {
+      if (!muted) {
+        sounds[name].volume = volume;
+        sounds[name].currentTime = 0;
+        sounds[name].play();
+      }
+    }
+
+    document.getElementById("volume").oninput = function () {
+      volume = this.value / 100;
+    };
+
+    function muteSound() {
+      muted = !muted;
+
+      if (muted) {
+        document.getElementById("muteBtn").innerText = "🔊 Unmute";
+      } else {
+        document.getElementById("muteBtn").innerText = "🔇 Mute";
+      }
+    }
+  </script>
+
+</body>
+</html>
